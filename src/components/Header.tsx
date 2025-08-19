@@ -17,6 +17,10 @@ const navigations = [
     to: '/signin',
     lable: 'Sign In',
   },
+  {
+    to: '/todos',
+    lable: 'Todos',
+  },
 ]
 
 export default function Header() {

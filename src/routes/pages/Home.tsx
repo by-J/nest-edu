@@ -1,4 +1,5 @@
 import Delayed from '@/components/Delayed'
+import UserNames from '@/components/UserNames'
 
 export default function Home() {
   return (
@@ -7,6 +8,10 @@ export default function Home() {
       <Delayed wait={1000} />
       <Delayed wait={2000} />
       <Delayed wait={3000} />
+      <Delayed wait={1000} />
+      <Delayed wait={2000} />
+      <Delayed wait={3000} />
+      <UserNames />
     </>
   )
 }

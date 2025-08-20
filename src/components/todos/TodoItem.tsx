@@ -1,5 +1,5 @@
 import { Todo, useDeleteTodo, useUpdateTodo } from '@/hooks/todo'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 export default function TodoItem({ todo }: { todo: Todo }) {
   const [isEditing, setIsEditing] = useState(false)

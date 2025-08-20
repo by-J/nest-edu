@@ -1,4 +1,3 @@
-import Movies from '@/routes/pages/Movies'
 import { useMovieStore } from '@/stores/movie'
 import {
   queryOptions,
@@ -8,7 +7,6 @@ import {
 } from '@tanstack/react-query'
 import axios from 'axios'
 import { uniqBy } from 'lodash-es'
-import { data } from 'react-router'
 
 export interface MoviesResponse {
   Search: Movie[]

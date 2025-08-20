@@ -1,5 +1,5 @@
 import Header from '@/components/Header'
-import { Outlet, useOutlet } from 'react-router'
+import { useOutlet } from 'react-router'
 
 export default function DefaultLayout() {
   const outlet = useOutlet()

@@ -2,7 +2,7 @@ import { useCreateTodo } from '@/hooks/todo'
 import { useState } from 'react'
 
 export default function TodoCreator() {
-  const { isPending, mutate, mutateAsync } = useCreateTodo()
+  const { isPending, mutate } = useCreateTodo()
   const [title, setTitle] = useState('')
 
   function handleCreate() {

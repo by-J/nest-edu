@@ -1,4 +1,3 @@
-import { set } from 'lodash-es'
 import { create } from 'zustand'
 import {
   combine,
@@ -26,7 +25,7 @@ export const useUserStore = create(
     persist(
       subscribeWithSelector(
         immer(
-          combine(initialUser, (set, get) => {
+          combine(initialUser, set => {
             return {
               setFirstEmail: (email: string) => {
                 set(state => {

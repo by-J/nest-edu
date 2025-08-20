@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useInfiniteMovies } from '@/hooks/movie'
 import { useMovieStore } from '@/stores/movie'
 import Loader from '@/components/Loader'

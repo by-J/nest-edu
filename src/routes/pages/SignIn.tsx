@@ -5,7 +5,7 @@ export default function SignIn() {
   const [id, setId] = useState('')
   const [pw, setPw] = useState('')
   const navigate = useNavigate()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const redirectTo = searchParams.get('redirectTo')
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {

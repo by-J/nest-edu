@@ -1,4 +1,5 @@
 import { useFetchTodos } from '@/hooks/todo'
+import TodoItem from './TodoItem'
 
 export default function TodoList() {
   const { data: todos } = useFetchTodos()
@@ -6,7 +7,12 @@ export default function TodoList() {
     <>
       <ul>
         {todos?.map(todo => {
-          return <li key={todo.id}>{todo.title}</li>
+          return (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+            />
+          )
         })}
       </ul>
     </>

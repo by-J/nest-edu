@@ -1,7 +1,14 @@
+import Movies from '@/routes/pages/Movies'
 import { useMovieStore } from '@/stores/movie'
-import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  queryOptions,
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import axios from 'axios'
 import { uniqBy } from 'lodash-es'
+import { data } from 'react-router'
 
 export interface MoviesResponse {
   Search: Movie[]
@@ -86,5 +93,47 @@ export function useMovie(movieId?: string) {
       return data
     },
     staleTime: 1000 * 60 * 60,
+  })
+}
+
+export function useInfiniteMovies() {
+  const searchText = useMovieStore(state => state.searchText)
+  return useInfiniteQuery({
+    queryKey: ['movies', searchText],
+    queryFn: async pageParam => {
+      if (searchText.length < 3) return
+      // await new Promise(resolve => setTimeout(resolve, 1500))
+      const { data } = await axios<MoviesResponse>(
+        `https://omdbapi.com?apikey=7035c60c&s=${searchText}&page=${pageParam.pageParam}`
+      )
+      return data //page
+    },
+    //lastpage 3, pages [1,2,3]
+    getNextPageParam: (lastPage, pages) => {
+      if (!lastPage) return null
+      const { totalResults } = lastPage
+      const total = Number.parseInt(totalResults, 10)
+      const maxPage = Math.ceil(total / 10)
+      const currentPage = pages.length
+      if (lastPage.Response === 'True' && currentPage < maxPage) {
+        return currentPage + 1
+      }
+      return null
+    },
+    initialPageParam: 1,
+    enabled: Boolean(searchText),
+    staleTime: 1000 * 60 * 60,
+    select: data => {
+      return {
+        ...data,
+        pages: data.pages.map(page => {
+          if (!page) return page
+          return {
+            ...page,
+            Search: uniqBy(page.Search, 'imdbID'),
+          }
+        }),
+      }
+    },
   })
 }

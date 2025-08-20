@@ -65,7 +65,6 @@ export function useUpdateTodo() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (todo: Todo) => {
-      await new Promise(resolve => setTimeout(resolve, 1500))
       await api.put(`/${todo.id}`, todo)
     },
     onMutate: async todo => {

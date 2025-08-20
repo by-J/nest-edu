@@ -1,9 +1,10 @@
 import { Todo, useDeleteTodo, useUpdateTodo } from '@/hooks/todo'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export default function TodoItem({ todo }: { todo: Todo }) {
   const [isEditing, setIsEditing] = useState(false)
   const [title, setTitle] = useState(todo.title)
+  const [isDone, setIsDone] = useState(todo.done)
 
   const { isPending: isPendingForUpdate, mutateAsync: mutateAsyncForUpdate } =
     useUpdateTodo()
@@ -35,6 +36,12 @@ export default function TodoItem({ todo }: { todo: Todo }) {
   function handleDelete() {
     mutateAsyncForDelete(todo.id)
     offEditMode()
+  }
+
+  function handleChecked(e: React.ChangeEvent<HTMLInputElement>) {
+    const done = e.target.checked
+    setIsDone(done)
+    mutateAsyncForUpdate({ ...todo, done })
   }
 
   return (
@@ -69,6 +76,8 @@ export default function TodoItem({ todo }: { todo: Todo }) {
           <input
             type="checkbox"
             defaultChecked={todo.done}
+            checked={isDone}
+            onChange={handleChecked}
           />
           <div className="grow-1">{todo.title}</div>
           <button

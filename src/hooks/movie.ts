@@ -98,11 +98,11 @@ export function useInfiniteMovies() {
   const searchText = useMovieStore(state => state.searchText)
   return useInfiniteQuery({
     queryKey: ['movies', searchText],
-    queryFn: async pageParam => {
+    queryFn: async ({ pageParam }) => {
       if (searchText.length < 3) return
       // await new Promise(resolve => setTimeout(resolve, 1500))
       const { data } = await axios<MoviesResponse>(
-        `https://omdbapi.com?apikey=7035c60c&s=${searchText}&page=${pageParam.pageParam}`
+        `https://omdbapi.com?apikey=7035c60c&s=${searchText}&page=${pageParam}`
       )
       return data //page
     },
